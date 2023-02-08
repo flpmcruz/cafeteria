@@ -1,0 +1,9 @@
+@use 'base';
+@use 'header';
+@use 'inicio';
+@use 'footer';
+@use 'internas';
+
+@use 'utilidades';
+
+//el orden de importacion es importante porque el ultimo sobreescribe propiedades anteriores
