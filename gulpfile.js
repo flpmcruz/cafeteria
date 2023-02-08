@@ -16,9 +16,9 @@ function css(done) {
     //Pasos: 
     //1. {sourcemaps} - Mapear el css con los archivos scss 
     //2. {sass} - Compilar SASS, con la opcion de mimificado
-    //3. {postcss} - 
-        //{autoprefixer} - Lee el browserList del package.json y compila con la compatibilidad indicada
-        //{cssnano} - Mimifica y optimiza la hoja de estilo
+    //3. {postcss} - recibe un array con plugins
+            //{autoprefixer} - Lee el browserList del package.json y compila con la compatibilidad indicada
+            //{cssnano} - Mimifica y optimiza la hoja de estilo
     //4. {sourcemaps} - Guarda el mapeo en el mismo directorio
     //5. {sourcemaps} - Guarda el CSS en el directorio indicado
 
@@ -43,14 +43,14 @@ function imagenes(done) {
 
 function versionWebp() {
     return src('src/img/**/*.{png,jpg}')
-        .pipe( webp( { quality: 50 } ))
-        .pipe( dest('build/img'))
+            .pipe( webp( { quality: 50 } ))
+            .pipe( dest('build/img'))
 }
 
 function versionAvif() {
     return src('src/img/**/*.{png,jpg}')
-        .pipe( avif( { quality: 50 } ))
-        .pipe( dest('build/img'))
+            .pipe( avif( { quality: 50 } ))
+            .pipe( dest('build/img'))
 }
 
 function dev() {
@@ -58,7 +58,7 @@ function dev() {
     watch('src/img/**/*', imagenes)
 }
 
-//Ese es el nombre con el que voy a llamar a gulp. ej. gulp css
+//Ese es el nombre de la tarea que le voy a pasar a gulp. ej. gulp css
 exports.css = css
 exports.dev = dev
 exports.imagenes = imagenes
@@ -66,7 +66,7 @@ exports.versionWebp = versionWebp
 exports.versionAvif = versionAvif
 
 exports.default = series( imagenes, versionWebp, versionAvif, css, dev ); 
-//se ejecutan con solo gulp y para ejecutar multiples tareas
+//default se ejecuta con solo gulp y para ejecutar multiples tareas se usa series
 
 //series - ejecuta primero una tarea y luego sigue a la otra series( css, dev)
 //parallel - inicia las tareas en paralelo( css, dev)
